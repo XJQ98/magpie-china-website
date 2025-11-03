@@ -31,6 +31,19 @@ background-image-overlay : rgba(255, 255, 255, 0.5) # Set overlay for the backgr
 
 
 
+giscus:
+  enable: true # set to true if you want to enable giscus comments on your posts
+  repo: "MAgPIE-China/MAgPIE-China.github.io" # your giscus repo
+  repo_id: "R_kgDOJYH0cw" # your giscus repo id
+  category: "General" # your giscus category
+  category_id: "DIC_kwDOJYH0c84CU6ZC" # your giscus category id
+  mapping: "pathname" # mapping can be "url", "title", "og:title", or "pathname"
+  reactions_enabled: "1" # Enable reactions, can be "1" (enable) or "0" (disable)
+  emit_metadata: "0" # Enable metadata, can be "1" (enable) or "0" (disable)
+  input_position: "bottom" # Position of the comment box, can be "top" or "bottom"
+  lang: "en" # Language code, e.g. "en", "de", "fr", etc.
+  loading: "lazy" # Loading strategy, can be "lazy", "eager", or "auto"
+
 # Site Footer.
 footer:
   links: # replace the URL's with your own for every link you want to have in your footer.
