@@ -98,8 +98,10 @@
 		      
 		    </ul>
 		</nav>
+    <a id="lang-toggle" href="" style="position: absolute; top: 0px; right: 21.5%; transform: translateX(-100%); padding: 4px 8px; background: white; border: none; border-radius: 4px; font-size: 12px; color: #333; text-decoration: none;"></a>
 	</div><!-- /.top-navigation -->
-</div>
+</div><!-- /.navigation-wrapper -->
+
 
 
 <div id="main" role="main"  itemprop="mainContentOfPage">
@@ -113,9 +115,9 @@
     <!-- PIK （若无可将下一行删除）-->
     <p style="text-indent:0;"><a href="[your page link PIK]" target="_blank"><img src="/members/assets/images/PIK2.webp" width="16.5" height="16.5"></i>PIK</a></p>
     <!-- github （若无可将下一行删除）-->
-    <p style="text-indent:0;"><a href="[your page link github]" target="_blank"><img src="/members/assets/images/github.webp" width="16.5" height="16.5"></i> Github</a></p>
+    <p style="text-indent:0;"><a href="https://github.com/jiahuiwang0107" target="_blank"><img src="/members/assets/images/github.webp" width="16.5" height="16.5"></i> Github</a></p>
     <!-- research gate（若无可将下一行删除） -->
-    <p style="text-indent:0;"><a href="[your page link research gate]" target="_blank"><img src="/members/assets/images/researchgate.webp" width="16.5" height="16.5"></i>Research Gate</a></p>
+    <p style="text-indent:0;"><a href="https://www.researchgate.net/profile/Jiahui-Wang-84?ev=hdr_xprf" target="_blank"><img src="/members/assets/images/researchgate.webp" width="16.5" height="16.5"></i>Research Gate</a></p>
     <!-- google scholar（若无可将下一行删除） -->
     <p style="text-indent:0;"><a href="[your page link oogle scholar]" target="_blank"><img src="/members/assets/images/googlescholar.webp" width="16.5" height="16.5"></i>Google Scholar</a></p>
     <!-- 可以在此行下面增加上与上述格式类似的内容,并相应替换相关文本 -->
@@ -123,8 +125,9 @@
     </br>
 
     <h5><strong>Research Interests</strong></h5>
-    <p>· [...] <!-- 研究兴趣1 -->
-      </br>· [...] <!-- 研究兴趣2 -->
+    <p>· Digital agriculture <!-- 研究兴趣1 -->
+      </br>· Green Agriculture <!-- 研究兴趣2 -->
+      </br>· Farmers' income 
     </p>
   </div>
 
@@ -156,7 +159,7 @@
 
 <div class="footer-wrap">
   <footer>
-    <h6>&copy; 2024 [Jiahui Wang].
+    <h6>&copy; 2025 [Jiahui Wang].
   Published with <a href="https://pages.github.com/" rel="nofollow">GitHub Pages</a>,
   powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a>,
   based on the <a href="https://mademistakes.com/" rel="nofollow">Minimal Mistakes</a> theme.
@@ -169,22 +172,24 @@
   </footer>
 </div><!-- /.footer-wrap -->
 
-<script src="/members/assets/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="https://caihanlin/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-<script src="https://caihanlin/assets/js/main.min.js"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+(function() {
+  var langToggle = document.getElementById('lang-toggle');
+  if (!langToggle) return;
 
-  ga('create', 'G-T5N5JY1E21', 'caihanlin.com');
-  ga('send', 'pageview');
+  function isZh() {
+    return /(\.zh\.html|\/zh\/)/.test(location.pathname);
+  }
 
+  function setLabel() {
+    langToggle.textContent = isZh() ? 'EN' : '中文';
+    langToggle.href = isZh()
+      ? location.pathname.replace(/\.zh\.html$/, '.html')
+      : location.pathname.replace(/\.html$/, '.zh.html');
+  }
+
+  setLabel();
+})();
 </script>
-
-<!-- https://analytics.google.com/analytics/ -->
-<!-- Lastly modified by Hanlin CAI in 2023/01/15 -->
-
 </body>
 </html>

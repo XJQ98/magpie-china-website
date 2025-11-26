@@ -1,0 +1,16 @@
+main:
+  - title: "首页"
+    url: /index.zh.html
+    blank: true"
+  - title: "团队"
+    url: /members/index.zh.html
+    blank: false
+  - title: "新闻"
+    url: /news/index.zh.html
+    blank: false
+  - title: "成果"
+    url: /showcase/index.zh.html
+    blank: false
+  - title: "EN"
+    zh: true
+    blank: false

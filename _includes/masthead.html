@@ -11,13 +11,33 @@
           {{ site.masthead_title | default: site.title }}
           {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle }}</span>{% endif %}
         </a>
-        <ul class="visible-links">
+
+        <!-- replaced: render BOTH navs (EN + ZH). JS will show only one based on current page -->
+        <ul class="visible-links nav-en" aria-hidden="true">
           {%- for link in site.data.navigation.main -%}
             <li class="masthead__menu-item">
-              <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %} {% if link.blank %} target="_blank" rel="noopener noreferrer nofollow"{% endif %}>{{ link.title }}</a>
+              {%- if link.zh -%}
+                <a href="javascript:void(0);" class="masthead__lang-toggle" data-title-zh="{{ link.title | default: '中文' }}" data-title-en="EN" title="{{ link.title | default: '中文' }}">{{ link.title | default: '中文' }}</a>
+              {%- else -%}
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}{% if link.blank %} target="_blank" rel="noopener noreferrer nofollow"{% endif %}>{{ link.title }}</a>
+              {%- endif -%}
             </li>
           {%- endfor -%}
         </ul>
+
+        <ul class="visible-links nav-zh" aria-hidden="true" style="display:none;">
+          {%- for link in site.data.navigation_zh.main -%}
+            <li class="masthead__menu-item">
+              {%- if link.zh -%}
+                <a href="javascript:void(0);" class="masthead__lang-toggle" data-title-zh="{{ link.title | default: '中文' }}" data-title-en="EN" title="{{ link.title | default: '中文' }}">{{ link.title | default: '中文' }}</a>
+              {%- else -%}
+                <a href="{{ link.url | relative_url }}"{% if link.description %} title="{{ link.description }}"{% endif %}{% if link.blank %} target="_blank" rel="noopener noreferrer nofollow"{% endif %}>{{ link.title }}</a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        <!-- end replaced -->
+
         {% if site.search == true %}
         <button class="search__toggle" type="button">
           <span class="visually-hidden">{{ site.data.ui-text[site.locale].search_label | default: "Toggle search" }}</span>
@@ -30,6 +50,74 @@
         </button>
         <ul class="hidden-links hidden"></ul>
       </nav>
+
+      <!-- keep compact style for toggle -->
+      <style>
+        .masthead__lang-toggle {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          min-width: 34px !important;
+          height: 24px !important;
+          padding: 0 6px !important;
+          font-size: 12px !important;
+          line-height: 1 !important;
+          border-radius: 3px !important;
+          background: transparent !important;
+          box-sizing: border-box !important;
+        }
+        .masthead__menu .visible-links .masthead__menu-item { padding-top:0 !important; padding-bottom:0 !important; }
+      </style>
+
+      <!-- client-side: show EN or ZH nav based on server hint OR URL (.zh/.zh.html or /zh/) -->
+      <script>
+      (function(){
+        // server-side hint (if page.front-matter explicitly set lang: zh)
+        var serverIsZh = {% if page.lang == 'zh' %}true{% else %}false{% endif %};
+
+        function clientIsZhPath(p){
+          p = p || location.pathname || '/';
+          return p.indexOf('/zh/') === 0 || /\.zh\.html$/.test(p);
+        }
+
+        var useZh = serverIsZh || clientIsZhPath();
+
+        var enNav = document.querySelector('.nav-en');
+        var zhNav = document.querySelector('.nav-zh');
+
+        if (enNav) { enNav.style.display = useZh ? 'none' : ''; enNav.setAttribute('aria-hidden', useZh ? 'true' : 'false'); }
+        if (zhNav) { zhNav.style.display = useZh ? '' : 'none'; zhNav.setAttribute('aria-hidden', useZh ? 'false' : 'true'); }
+
+        // update toggle labels and hook click behavior on whichever nav is visible
+        function bindToggles(container){
+          if(!container) return;
+          var toggles = container.querySelectorAll('.masthead__lang-toggle');
+          toggles.forEach(function(a){
+            var zhLabel = a.getAttribute('data-title-zh') || '中文';
+            var enLabel = a.getAttribute('data-title-en') || 'EN';
+            function updateLabel(){ a.textContent = clientIsZhPath() || serverIsZh ? enLabel : zhLabel; }
+            updateLabel();
+            a.addEventListener('click', function(e){
+              e.preventDefault();
+              var p = location.pathname || '/';
+              var q = location.search || '', h = location.hash || '';
+              if (p.endsWith('/')) p = p + 'index.html';
+              if (/\.zh\.html$/.test(p)) { location.href = p.replace(/\.zh\.html$/,'.html') + q + h; return; }
+              if (/\.html$/.test(p)) { location.href = p.replace(/\.html$/,'.zh.html') + q + h; return; }
+              location.href = (p.endsWith('/') ? p + 'index.zh.html' : p + '/index.zh.html') + q + h;
+            });
+            // update on history navigation
+            window.addEventListener('popstate', updateLabel);
+          });
+        }
+
+        bindToggles(useZh ? zhNav : enNav);
+        // also observe DOM changes (in case greedy-nav manipulates links) and rebind
+        var observer = new MutationObserver(function(){ bindToggles(useZh ? zhNav : enNav); });
+        observer.observe(document.getElementById('site-nav'), { childList:true, subtree:true });
+      })();
+      </script>
+
     </div>
   </div>
 </div>

@@ -32,17 +32,16 @@ background-image-overlay : rgba(255, 255, 255, 0.5) # Set overlay for the backgr
 
 
 giscus:
-  enable: true # set to true if you want to enable giscus comments on your posts
+  reactions_enabled: 1 # set to true if you want to enable giscus comments on your posts
   repo: "ZhouPeng12138/ZhouPeng12138.github.io" # your giscus repo
-  repo_id: "R_kgDOJYH0cw" # your giscus repo id
+  repo_id: "R_kgDOMc99AA" # your giscus repo id
   category: "General" # your giscus category
-  category_id: "DIC_kwDOJYH0c84CU6ZC" # your giscus category id
+  category_id: "DIC_kwDOMc99AM4CxYbD" # your giscus category id
   mapping: "pathname" # mapping can be "url", "title", "og:title", or "pathname"
-  reactions_enabled: "1" # Enable reactions, can be "1" (enable) or "0" (disable)
   emit_metadata: "0" # Enable metadata, can be "1" (enable) or "0" (disable)
   input_position: "bottom" # Position of the comment box, can be "top" or "bottom"
   lang: "en" # Language code, e.g. "en", "de", "fr", etc.
-  loading: "lazy" # Loading strategy, can be "lazy", "eager", or "auto"
+  strict: 1                      # use strict identification mode
 
 # Site Footer.
 footer:

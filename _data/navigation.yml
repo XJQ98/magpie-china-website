@@ -1,7 +1,7 @@
 # main links
 main:
-  - title: "What is MAgPIE-China?"
-    url: https://github.com/MAgPIE-China
+  - title: "Home"
+    url: /
     blank: true
     description: "The documentation for MAgPIE-China"
   - title: "Team"
@@ -13,6 +13,6 @@ main:
   - title: "Showcase"
     url: /showcase/index.html
     blank: false
-  - title: <font size=1>中文</font>
-    url: /ch
+  - title: 中文
+    zh: true
     blank: false

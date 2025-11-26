@@ -1,0 +1,21 @@
+{% if site.giscus.repo and page.comments != false %}
+<div class="giscus-comments" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e1e4e8;">
+  <h3 style="margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600;">Comments</h3>
+  
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ site.giscus.repo }}"
+          data-repo-id="{{ site.giscus.repo_id }}"
+          data-category="{{ site.giscus.category }}"
+          data-category-id="{{ site.giscus.category_id }}"
+          data-mapping="{{ site.giscus.mapping | default: 'pathname' }}"
+          data-strict="{{ site.giscus.strict | default: '0' }}"
+          data-reactions-enabled="{{ site.giscus.reactions_enabled | default: '1' }}"
+          data-emit-metadata="{{ site.giscus.emit_metadata | default: '0' }}"
+          data-input-position="{{ site.giscus.input_position | default: 'bottom' }}"
+          data-theme="light"
+          data-lang="{{ site.giscus.lang | default: 'en' }}"
+          crossorigin="anonymous"
+          async>
+  </script>
+</div>
+{% endif %}
